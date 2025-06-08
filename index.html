@@ -11,6 +11,33 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        /* Couleurs et dégradés personnalisés inspirés de pathos.cc */
+        .bg-dark-purple {
+            background-color: #1a152d; /* Couleur de fond principale */
+        }
+        .bg-card-dark {
+            background-color: #211c3b; /* Couleur de fond des cartes */
+        }
+        .text-purple-accent {
+            color: #bd93f9; /* Couleur d'accent violet clair */
+        }
+        .border-purple-accent {
+            border-color: #bd93f9;
+        }
+        .gradient-button {
+            background: linear-gradient(90deg, #62439c 0%, #a27ae0 100%);
+            transition: all 0.3s ease;
+        }
+        .gradient-button:hover {
+            background: linear-gradient(90deg, #a27ae0 0%, #62439c 100%);
+            box-shadow: 0 4px 15px rgba(189, 147, 249, 0.4);
+        }
+        .input-focus-purple:focus {
+            outline: none;
+            border-color: #bd93f9;
+            box-shadow: 0 0 0 3px rgba(189, 147, 249, 0.5);
+        }
+
         /* Styles pour les animations */
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-20px); }
@@ -35,14 +62,13 @@
         }
     </style>
 </head>
-<body class="bg-gray-900 min-h-screen text-gray-100 p-4 flex flex-col">
+<body class="bg-dark-purple min-h-screen text-gray-100 p-4 flex flex-col">
 
     <!-- En-tête de la page -->
-    <header class="text-center py-8 bg-gray-800 rounded-b-xl shadow-lg mb-8">
+    <header class="text-center py-8 bg-card-dark rounded-b-xl shadow-lg mb-8">
         <!-- Logo Crown Cheat -->
-        <!-- ATTENTION : Remplacez l'URL ci-dessous par l'URL de votre logo en ligne (par exemple, hébergé sur votre GitHub ou un CDN) -->
-        <img src="https://placehold.co/200x200/000000/FFFFFF?text=Crown+Cheat+Logo"
-             onerror="this.src='https://placehold.co/200x200/000000/FFFFFF?text=Crown+Cheat+Logo'"
+        <img src="https://cdn.glitch.global/c0f93944-6eb6-4c85-998c-fee4b4763757d/c0f939446eb6c85998cfee4b4763757d.png?v=1717873215570"
+             onerror="this.src='https://placehold.co/200x200/211c3b/FFFFFF?text=Crown+Cheat+Logo'"
              alt="Logo Crown Cheat"
              class="mx-auto mb-6 rounded-full shadow-lg"
              style="max-width: 150px; height: auto;">
@@ -55,22 +81,21 @@
         </p>
     </header>
 
-    <main class="container mx-auto mt-8 p-4 flex-grow">
+    <main class="container mx-auto mt-8 p-4 max-w-4xl flex-grow">
         <!-- Barre de recherche et filtres -->
-        <div class="bg-gray-800 p-6 rounded-xl shadow-lg mb-12">
-            <h2 class="text-2xl font-bold text-center mb-4 text-gray-200">Rechercher un script</h2>
+        <div class="bg-card-dark p-6 rounded-xl shadow-lg mb-12">
+            <h2 class="text-2xl font-bold text-center mb-4 text-white">Rechercher un script</h2>
             <input type="text" id="scriptSearch" onkeyup="filterScripts()"
                    placeholder="Ex: Universal Executor..."
-                   class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 mb-4">
+                   class="w-full p-3 rounded-lg bg-dark-purple border border-gray-600 text-white placeholder-gray-400 input-focus-purple mb-4">
 
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <button onclick="setFilter('all')" class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 shadow-md">
+                <button onclick="setFilter('all')" class="filter-btn gradient-button text-white font-bold py-2 px-4 rounded-lg shadow-md">
                     Tous les scripts
                 </button>
-                <button onclick="setFilter('free')" class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 shadow-md">
+                <button onclick="setFilter('free')" class="filter-btn gradient-button text-white font-bold py-2 px-4 rounded-lg shadow-md">
                     Scripts Gratuits
                 </button>
-                <!-- Le bouton "Scripts Payants" a été retiré car vous n'en avez pas pour l'instant -->
             </div>
             <div class="text-center text-sm text-gray-400 mt-4">
                 <span id="totalScripts">Total des scripts : 0</span><br>
@@ -88,47 +113,47 @@
     </main>
 
     <!-- Pied de page -->
-    <footer class="bg-gray-800 text-gray-300 text-center py-8 mt-12 rounded-t-xl shadow-lg">
+    <footer class="bg-card-dark text-gray-300 text-center py-8 mt-12 rounded-t-xl shadow-lg">
         <h3 class="text-2xl font-bold mb-4 text-white">Nos Réseaux</h3>
         <div class="flex flex-wrap justify-center space-x-4 sm:space-x-6 mb-6">
-            <a href="https://discord.gg/GjgDWsT3B9" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center mb-2 sm:mb-0">
-                <img src="https://placehold.co/24x24/000000/FFFFFF?text=D" alt="Icône Discord" class="inline-block h-6 w-6 mr-1"> Discord
+            <a href="https://discord.gg/GjgDWsT3B9" target="_blank" class="text-purple-accent hover:text-white transition-colors duration-300 flex items-center mb-2 sm:mb-0">
+                <img src="https://placehold.co/24x24/211c3b/bd93f9?text=D" alt="Icône Discord" class="inline-block h-6 w-6 mr-1 rounded-full"> Discord
             </a>
-            <a href="https://github.com/crowncheat" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center mb-2 sm:mb-0">
-                <img src="https://placehold.co/24x24/000000/FFFFFF?text=GH" alt="Icône GitHub" class="inline-block h-6 w-6 mr-1"> GitHub
+            <a href="https://github.com/crowncheat" target="_blank" class="text-purple-accent hover:text-white transition-colors duration-300 flex items-center mb-2 sm:mb-0">
+                <img src="https://placehold.co/24x24/211c3b/bd93f9?text=GH" alt="Icône GitHub" class="inline-block h-6 w-6 mr-1 rounded-full"> GitHub
             </a>
-            <a href="https://www.youtube.com/@CrownCheat" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center mb-2 sm:mb-0">
-                <img src="https://placehold.co/24x24/000000/FFFFFF?text=YT" alt="Icône YouTube" class="inline-block h-6 w-6 mr-1"> YouTube
+            <a href="https://www.youtube.com/@CrownCheat" target="_blank" class="text-purple-accent hover:text-white transition-colors duration-300 flex items-center mb-2 sm:mb-0">
+                <img src="https://placehold.co/24x24/211c3b/bd93f9?text=YT" alt="Icône YouTube" class="inline-block h-6 w-6 mr-1 rounded-full"> YouTube
             </a>
-            <a href="https://x.com/crown_cheat" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center mb-2 sm:mb-0">
-                <img src="https://placehold.co/24x24/000000/FFFFFF?text=X" alt="Icône X (Twitter)" class="inline-block h-6 w-6 mr-1"> X
+            <a href="https://x.com/crown_cheat" target="_blank" class="text-purple-accent hover:text-white transition-colors duration-300 flex items-center mb-2 sm:mb-0">
+                <img src="https://placehold.co/24x24/211c3b/bd93f9?text=X" alt="Icône X (Twitter)" class="inline-block h-6 w-6 mr-1 rounded-full"> X
             </a>
-            <a href="https://www.tiktok.com/@crowncheat.rbx" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center mb-2 sm:mb-0">
-                <img src="https://placehold.co/24x24/000000/FFFFFF?text=TK" alt="Icône TikTok" class="inline-block h-6 w-6 mr-1"> TikTok
+            <a href="https://www.tiktok.com/@crowncheat.rbx" target="_blank" class="text-purple-accent hover:text-white transition-colors duration-300 flex items-center mb-2 sm:mb-0">
+                <img src="https://placehold.co/24x24/211c3b/bd93f9?text=TK" alt="Icône TikTok" class="inline-block h-6 w-6 mr-1 rounded-full"> TikTok
             </a>
-            <a href="https://rscripts.net/@crowncheat" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center mb-2 sm:mb-0">
-                <img src="https://placehold.co/24x24/000000/FFFFFF?text=R" alt="Icône RScripts.net" class="inline-block h-6 w-6 mr-1"> RScripts.net
+            <a href="https://rscripts.net/@crowncheat" target="_blank" class="text-purple-accent hover:text-white transition-colors duration-300 flex items-center mb-2 sm:mb-0">
+                <img src="https://placehold.co/24x24/211c3b/bd93f9?text=R" alt="Icône RScripts.net" class="inline-block h-6 w-6 mr-1 rounded-full"> RScripts.net
             </a>
-            <a href="https://scriptblox.com/u/CrownCheat" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center mb-2 sm:mb-0">
-                <img src="https://placehold.co/24x24/000000/FFFFFF?text=S" alt="Icône Scriptblox.com" class="inline-block h-6 w-6 mr-1"> Scriptblox.com
+            <a href="https://scriptblox.com/u/CrownCheat" target="_blank" class="text-purple-accent hover:text-white transition-colors duration-300 flex items-center mb-2 sm:mb-0">
+                <img src="https://placehold.co/24x24/211c3b/bd93f9?text=S" alt="Icône Scriptblox.com" class="inline-block h-6 w-6 mr-1 rounded-full"> Scriptblox.com
             </a>
-            <a href="https://linkunlocker.com/@Biscuit" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center mb-2 sm:mb-0">
-                <img src="https://placehold.co/24x24/000000/FFFFFF?text=L" alt="Icône Link Unlocker" class="inline-block h-6 w-6 mr-1"> LinkUnlocker
+            <a href="https://linkunlocker.com/@Biscuit" target="_blank" class="text-purple-accent hover:text-white transition-colors duration-300 flex items-center mb-2 sm:mb-0">
+                <img src="https://placehold.co/24x24/211c3b/bd93f9?text=L" alt="Icône Link Unlocker" class="inline-block h-6 w-6 mr-1 rounded-full"> LinkUnlocker
             </a>
         </div>
         <p class="text-sm">
             © 2024 Crown Cheat. Tous droits réservés.
         </p>
         <p class="mt-2">
-            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300" onclick="showMessage('Les Conditions Générales d\'Utilisation seraient affichées ici. C\'est un lien factice pour l\'instant.')">Conditions Générales d'Utilisation (TOS)</a>
+            <a href="#" class="text-purple-accent hover:text-white transition-colors duration-300" onclick="showMessage('Les Conditions Générales d\'Utilisation seraient affichées ici. C\'est un lien factice pour l\'instant.')">Conditions Générales d'Utilisation (TOS)</a>
         </p>
     </footer>
 
     <!-- Overlay de Message Personnalisé -->
-    <div id="messageOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-        <div class="bg-gray-900 p-8 rounded-lg shadow-xl text-center border-2 border-gray-500">
+    <div id="messageOverlay" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-50">
+        <div class="bg-card-dark p-8 rounded-lg shadow-xl text-center border-2 border-purple-accent">
             <p id="messageText" class="text-white text-lg mb-6"></p>
-            <button onclick="hideMessage()" class="bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-6 rounded-lg transition-all duration-300">
+            <button onclick="hideMessage()" class="gradient-button text-white font-bold py-2 px-6 rounded-lg">
                 OK
             </button>
         </div>
@@ -167,22 +192,20 @@
             scriptContentToCopy.select();
             try {
                 const successful = document.execCommand('copy');
-                const msg = successful ? 'Script copié avec succès !' : 'La copie du script a échoué.';
+                const msg = successful ? 'Script copié avec succès !' : 'La copie du script a échoué. Veuillez copier manuellement le contenu affiché dans la fenêtre de message.';
                 showMessage(msg);
             } catch (err) {
-                showMessage('Impossible de copier le script. Votre navigateur ne le supporte peut-être pas.');
+                showMessage('Impossible de copier le script. Votre navigateur ne le supporte peut-être pas ou la copie automatique est restreinte. Veuillez copier manuellement le contenu affiché dans la fenêtre de message.');
             }
         }
 
         // Fonction spécifique pour copier le script Universal Executor avec explication de la clé
         function copyScriptContentAndExplainKey(script) {
             if (script) {
-                // Affiche le message sur le système de clé avant de copier
-                showMessage('N\'oubliez pas que ce script nécessite une clé. Une fois copié, les instructions pour l\'obtenir sont incluses dans le script lui-même.');
-                // Après un court délai, copie le contenu du script
-                setTimeout(() => {
-                    copyScriptContent(script.content);
-                }, 1500); // Laisse au moins 1.5 seconde à l'utilisateur pour lire le message
+                // Affiche le message sur le système de clé avant de copier, et inclut le script directement dans le message pour la copie manuelle
+                showMessage(`N\'oubliez pas que ce script nécessite une clé. Une fois copié, les instructions pour l\'obtenir sont incluses dans le script lui-même.\n\n--- Script ---\n${script.content}\n--- Fin du Script ---`);
+                // Tente de copier automatiquement
+                copyScriptContent(script.content);
             }
         }
 
@@ -208,7 +231,6 @@
 --]]
 loadstring(game:HttpGet("https://pastefy.app/g9j95kYj/raw"))()`
             }
-            // Aucun script payant pour l'instant, donc pas d'autres scripts ici.
         ];
 
         let currentFilter = 'all'; // 'all', 'free'
@@ -216,23 +238,21 @@ loadstring(game:HttpGet("https://pastefy.app/g9j95kYj/raw"))()`
         // Fonction pour générer une carte de script
         function createScriptCard(script) {
             const cardDiv = document.createElement('div');
-            cardDiv.classList.add('bg-gray-800', 'p-6', 'rounded-xl', 'shadow-lg', 'hover:shadow-2xl', 'transition-all', 'duration-300', 'transform', 'hover:scale-105', 'flex', 'flex-col', 'script-card');
+            cardDiv.classList.add('bg-card-dark', 'p-6', 'rounded-xl', 'shadow-lg', 'hover:shadow-2xl', 'transition-all', 'duration-300', 'transform', 'hover:scale-105', 'flex', 'flex-col', 'script-card');
             cardDiv.dataset.type = script.type; // Pour le filtrage
 
-            let buttonHtml = '';
-            // Puisqu'il n'y a que des scripts gratuits, cette logique est simplifiée
-            buttonHtml = `
+            let buttonHtml = `
                 <button onclick="toggleScriptOptions(this, 'options-${script.id}')"
-                        class="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg">
+                        class="w-full gradient-button text-white font-bold py-3 px-4 rounded-lg shadow-md">
                     Afficher les options
                 </button>
                 <div id="options-${script.id}" class="script-options hidden mt-4 flex space-x-2">
-                    <button onclick="showMessage('Le téléchargement direct n\'est pas disponible. Veuillez copier le script.')"
-                            class="flex-1 bg-gray-700 hover:bg-gray-800 text-white text-sm font-bold py-2 px-3 rounded-lg transition-all duration-300 shadow-md">
+                    <button onclick="showMessage('Le téléchargement direct n\'est pas disponible pour le moment. Veuillez copier le script.')"
+                            class="flex-1 bg-gray-700 hover:bg-gray-800 text-white text-sm font-bold py-2 px-3 rounded-lg shadow-md">
                         Télécharger (N/D)
                     </button>
                     <button onclick="copyScriptContentAndExplainKey(scriptsData.find(s => s.id === '${script.id}'))"
-                            class="flex-1 bg-gray-700 hover:bg-gray-800 text-white text-sm font-bold py-2 px-3 rounded-lg transition-all duration-300 shadow-md">
+                            class="flex-1 gradient-button text-white text-sm font-bold py-2 px-3 rounded-lg shadow-md">
                         Copier le script
                     </button>
                 </div>
@@ -261,7 +281,6 @@ loadstring(game:HttpGet("https://pastefy.app/g9j95kYj/raw"))()`
 
                 const matchesFilter = (currentFilter === 'all') ||
                                       (currentFilter === 'free' && script.type === 'free');
-                                      // Filtre 'paid' retiré
 
                 return matchesSearch && matchesFilter;
             });
