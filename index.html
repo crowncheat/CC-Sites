@@ -77,7 +77,7 @@
             Crown Cheat
         </h1>
         <p class="text-xl text-gray-300">
-            Découvrez Crown Cheat pour améliorer votre expérience de jeu !
+            Découvrez mes scripts Roblox pour améliorer votre expérience de jeu !
         </p>
     </header>
 
@@ -86,7 +86,7 @@
         <div class="bg-card-dark p-6 rounded-xl shadow-lg mb-12">
             <h2 class="text-2xl font-bold text-center mb-4 text-white">Rechercher un script</h2>
             <input type="text" id="scriptSearch" onkeyup="filterScripts()"
-                   placeholder="Ex: Universal Executor..."
+                   placeholder="Ex: Crown HUB..."
                    class="w-full p-3 rounded-lg bg-dark-purple border border-gray-600 text-white placeholder-gray-400 input-focus-purple mb-4">
 
             <div class="flex flex-col sm:flex-row justify-center gap-4">
@@ -149,7 +149,7 @@
         </p>
     </footer>
 
-    <!-- Overlay de Message Personnalisé -->
+    <!-- Overlay de Message Personnalisé pour la copie/téléchargement -->
     <div id="messageOverlay" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-50">
         <div class="bg-card-dark p-8 rounded-lg shadow-xl text-center border-2 border-purple-accent">
             <p id="messageText" class="text-white text-lg mb-6"></p>
@@ -159,11 +159,36 @@
         </div>
     </div>
 
+    <!-- Overlay pour les détails du script (profil) -->
+    <div id="scriptDetailOverlay" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-40">
+        <div class="bg-card-dark p-8 rounded-lg shadow-xl text-left border-2 border-purple-accent max-w-lg w-full relative">
+            <button onclick="hideScriptDetails()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            <h3 id="detailScriptName" class="text-3xl font-bold mb-4 text-purple-accent"></h3>
+            <p id="detailScriptDescription" class="text-gray-300 text-base mb-4"></p>
+            <p class="text-gray-400 text-sm mb-2">Créateur: <span id="detailScriptCreator" class="text-white"></span></p>
+
+            <div id="detailScriptKeySection" class="mb-4 hidden">
+                <p class="text-gray-400 text-sm mb-2">Ce script nécessite une clé.</p>
+                <a id="detailScriptKeyLink" href="#" target="_blank" class="gradient-button text-white font-bold py-2 px-4 rounded-lg shadow-md inline-block">
+                    Obtenir la clé ici !
+                </a>
+            </div>
+
+            <div class="mt-6 flex flex-col space-y-3">
+                <button onclick="copyScriptContent(document.getElementById('hiddenScriptContentForDetails').value); hideScriptDetails();" class="gradient-button text-white font-bold py-3 px-4 rounded-lg shadow-md">
+                    Copier le script
+                </button>
+            </div>
+            <!-- Champ caché pour stocker le contenu du script pour la copie depuis les détails -->
+            <input type="hidden" id="hiddenScriptContentForDetails">
+        </div>
+    </div>
+
     <!-- Zone de texte cachée pour la copie de script -->
     <textarea id="scriptContentToCopy" style="position: absolute; left: -9999px;"></textarea>
 
     <script>
-        // Fonction pour afficher le message personnalisé
+        // Fonction pour afficher le message personnalisé (pour copie, téléchargement, TOS)
         function showMessage(text) {
             document.getElementById('messageText').innerText = text;
             document.getElementById('messageOverlay').classList.remove('hidden');
@@ -174,7 +199,7 @@
             document.getElementById('messageOverlay').classList.add('hidden');
         }
 
-        // Fonction pour afficher/masquer les options de script
+        // Fonction pour afficher/masquer les options de script dans la carte
         function toggleScriptOptions(buttonElement, scriptId) {
             const optionsDiv = document.getElementById(scriptId);
             optionsDiv.classList.toggle('hidden');
@@ -192,33 +217,25 @@
             scriptContentToCopy.select();
             try {
                 const successful = document.execCommand('copy');
-                const msg = successful ? 'Script copié avec succès !' : 'La copie du script a échoué. Veuillez copier manuellement le contenu affiché dans la fenêtre de message.';
+                const msg = successful ? 'Script copié avec succès !' : 'La copie du script a échoué. Votre navigateur ne le supporte peut-être pas. Veuillez copier manuellement le contenu ci-dessous.\n\n' + content;
                 showMessage(msg);
             } catch (err) {
-                showMessage('Impossible de copier le script. Votre navigateur ne le supporte peut-être pas ou la copie automatique est restreinte. Veuillez copier manuellement le contenu affiché dans la fenêtre de message.');
-            }
-        }
-
-        // Fonction spécifique pour copier le script Universal Executor avec explication de la clé
-        function copyScriptContentAndExplainKey(script) {
-            if (script) {
-                // Affiche le message sur le système de clé avant de copier, et inclut le script directement dans le message pour la copie manuelle
-                showMessage(`N\'oubliez pas que ce script nécessite une clé. Une fois copié, les instructions pour l\'obtenir sont incluses dans le script lui-même.\n\n--- Script ---\n${script.content}\n--- Fin du Script ---`);
-                // Tente de copier automatiquement
-                copyScriptContent(script.content);
+                showMessage('Impossible de copier le script. Votre navigateur ne le supporte peut-être pas ou la copie automatique est restreinte. Veuillez copier manuellement le contenu ci-dessous.\n\n' + content);
             }
         }
 
         // Données des scripts
         const scriptsData = [
             {
-                id: 'universalExecutor',
-                name: 'Universal Executor',
-                description: 'Un script puissant qui permet d\'exécuter du code Roblox à partir d\'une source externe. Il inclut les instructions pour obtenir la clé nécessaire à son fonctionnement.',
+                id: 'crownHub',
+                name: 'Crown HUB',
+                description: 'Un script puissant qui permet d\'exécuter du code Roblox à partir d\'une source externe (comme Pastefy). Ce script inclut les instructions pour obtenir la clé nécessaire à son fonctionnement, et offre une expérience de jeu améliorée avec diverses fonctionnalités.',
                 type: 'free',
                 price: null,
+                creator: 'Crown Cheat', // Ajout du créateur
+                keyLink: 'https://linkunlocker.com/crown-hub-51mC6', // Lien de la clé
                 content: `--[[
--- Bienvenue sur le script Universal Executor de Crown Cheat !
+-- Bienvenue sur le script Crown HUB de Crown Cheat !
 -- Ce script nécessite une clé pour fonctionner.
 --
 -- Comment obtenir votre clé :
@@ -251,21 +268,54 @@ loadstring(game:HttpGet("https://pastefy.app/g9j95kYj/raw"))()`
                             class="flex-1 bg-gray-700 hover:bg-gray-800 text-white text-sm font-bold py-2 px-3 rounded-lg shadow-md">
                         Télécharger (N/D)
                     </button>
-                    <button onclick="copyScriptContentAndExplainKey(scriptsData.find(s => s.id === '${script.id}'))"
+                    <button onclick="copyScriptContent('${script.content.replace(/'/g, "\\'")}')"
                             class="flex-1 gradient-button text-white text-sm font-bold py-2 px-3 rounded-lg shadow-md">
                         Copier le script
                     </button>
+                    ${script.keyLink ? `<a href="${script.keyLink}" target="_blank" class="flex-1 gradient-button text-white text-sm font-bold py-2 px-3 rounded-lg shadow-md text-center flex items-center justify-center">Obtenir la Clé</a>` : ''}
                 </div>
             `;
 
             cardDiv.innerHTML = `
-                <h3 class="text-2xl font-semibold mb-3 text-white">${script.name}</h3>
+                <h3 class="text-2xl font-semibold mb-3 text-white cursor-pointer hover:text-purple-accent transition-colors duration-300" onclick="showScriptDetails('${script.id}')">
+                    ${script.name}
+                </h3>
                 <p class="text-gray-400 text-sm mb-4 flex-grow">${script.description}</p>
                 <div class="mt-auto">
                     ${buttonHtml}
                 </div>
             `;
             return cardDiv;
+        }
+
+        // Fonction pour afficher les détails du script dans un overlay
+        function showScriptDetails(scriptId) {
+            const script = scriptsData.find(s => s.id === scriptId);
+            if (!script) return;
+
+            document.getElementById('detailScriptName').innerText = script.name;
+            document.getElementById('detailScriptDescription').innerText = script.description;
+            document.getElementById('detailScriptCreator').innerText = script.creator || 'Inconnu';
+
+            const keySection = document.getElementById('detailScriptKeySection');
+            const keyLink = document.getElementById('detailScriptKeyLink');
+
+            if (script.keyLink) {
+                keyLink.href = script.keyLink;
+                keySection.classList.remove('hidden');
+            } else {
+                keySection.classList.add('hidden');
+            }
+
+            // Pour la copie du script depuis le modal de détails
+            document.getElementById('hiddenScriptContentForDetails').value = script.content;
+
+            document.getElementById('scriptDetailOverlay').classList.remove('hidden');
+        }
+
+        // Fonction pour masquer les détails du script
+        function hideScriptDetails() {
+            document.getElementById('scriptDetailOverlay').classList.add('hidden');
         }
 
         // Fonction pour afficher les scripts en fonction du filtre et de la recherche
