@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Scripts Roblox</title>
+    <!-- Chargement de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Définition de la police Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Styles pour les animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-down {
+            animation: fadeInDown 0.8s ease-out forwards;
+        }
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-fade-in-left {
+            animation: fadeInLeft 0.8s ease-out forwards;
+        }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-fade-in-right {
+            animation: fadeInRight 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 min-h-screen text-gray-100 p-4 flex flex-col">
+
+    <!-- En-tête de la page -->
+    <header class="text-center py-8 bg-gray-800 rounded-b-xl shadow-lg mb-8">
+        <!-- Logo -->
+        <img src="https://placehold.co/200x200/000000/FFFFFF?text=Logo"
+             onerror="this.src='https://placehold.co/200x200/000000/FFFFFF?text=Logo'"
+             alt="Logo Crown Cheat"
+             class="mx-auto mb-6 rounded-full shadow-lg"
+             style="max-width: 150px; height: auto;">
+
+        <h1 class="text-5xl font-extrabold mb-4 text-white animate-fade-in-down">
+            Mes Scripts Roblox
+        </h1>
+        <p class="text-xl text-gray-300">
+            Découvrez mes scripts Roblox, gratuits et payants, pour améliorer votre expérience de jeu !
+        </p>
+    </header>
+
+    <main class="container mx-auto mt-8 p-4 flex-grow">
+        <!-- Barre de recherche et filtres -->
+        <div class="bg-gray-800 p-6 rounded-xl shadow-lg mb-12">
+            <h2 class="text-2xl font-bold text-center mb-4 text-gray-200">Rechercher un script</h2>
+            <input type="text" id="scriptSearch" onkeyup="filterScripts()"
+                   placeholder="Ex: Speed Boost, Inventaire, Anti-Cheat..."
+                   class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 mb-4">
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button onclick="setFilter('all')" class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 shadow-md">
+                    Tous les scripts
+                </button>
+                <button onclick="setFilter('free')" class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 shadow-md">
+                    Scripts Gratuits
+                </button>
+                <button onclick="setFilter('paid')" class="filter-btn bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 shadow-md">
+                    Scripts Payants
+                </button>
+            </div>
+            <div class="text-center text-sm text-gray-400 mt-4">
+                <span id="totalScripts">Total des scripts : 0</span><br>
+                <span id="displayedScripts">Scripts affichés : 0</span>
+            </div>
+        </div>
+
+        <!-- Section des Scripts -->
+        <section>
+            <div id="scriptsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Les cartes de scripts seront générées ici par JavaScript -->
+            </div>
+            <p id="noResultsMessage" class="text-center text-gray-400 text-xl hidden mt-8">Aucun script trouvé pour votre recherche.</p>
+        </section>
+    </main>
+
+    <!-- Pied de page -->
+    <footer class="bg-gray-800 text-gray-300 text-center py-8 mt-12 rounded-t-xl shadow-lg">
+        <h3 class="text-2xl font-bold mb-4 text-white">Nos Réseaux</h3>
+        <div class="flex justify-center space-x-6 mb-6">
+            <a href="#" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300">
+                <img src="https://placehold.co/40x40/000000/FFFFFF?text=D" alt="Discord" class="inline-block h-10 w-10 rounded-full">
+            </a>
+            <a href="#" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300">
+                <img src="https://placehold.co/40x40/000000/FFFFFF?text=YT" alt="YouTube" class="inline-block h-10 w-10 rounded-full">
+            </a>
+            <a href="#" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300">
+                <img src="https://placehold.co/40x40/000000/FFFFFF?text=X" alt="X (Twitter)" class="inline-block h-10 w-10 rounded-full">
+            </a>
+            <!-- Vous pouvez ajouter d'autres icônes/liens ici -->
+        </div>
+        <p class="text-sm">
+            © 2024 Mes Scripts Roblox. Tous droits réservés.
+        </p>
+        <p class="mt-2">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300" onclick="showMessage('Les Conditions Générales d\'Utilisation seraient affichées ici.')">Conditions Générales d'Utilisation (TOS)</a>
+        </p>
+    </footer>
+
+    <!-- Overlay de Message Personnalisé -->
+    <div id="messageOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-gray-900 p-8 rounded-lg shadow-xl text-center border-2 border-gray-500">
+            <p id="messageText" class="text-white text-lg mb-6"></p>
+            <button onclick="hideMessage()" class="bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-6 rounded-lg transition-all duration-300">
+                OK
+            </button>
+        </div>
+    </div>
+
+    <!-- Zone de texte cachée pour la copie de script -->
+    <textarea id="scriptContentToCopy" style="position: absolute; left: -9999px;"></textarea>
+
+    <script>
+        // Fonction pour afficher le message personnalisé
+        function showMessage(text) {
+            document.getElementById('messageText').innerText = text;
+            document.getElementById('messageOverlay').classList.remove('hidden');
+        }
+
+        // Fonction pour masquer le message personnalisé
+        function hideMessage() {
+            document.getElementById('messageOverlay').classList.add('hidden');
+        }
+
+        // Fonction pour afficher/masquer les options de script
+        function toggleScriptOptions(buttonElement, scriptId) {
+            const optionsDiv = document.getElementById(scriptId);
+            optionsDiv.classList.toggle('hidden');
+            if (optionsDiv.classList.contains('hidden')) {
+                buttonElement.innerText = 'Afficher les options';
+            } else {
+                buttonElement.innerText = 'Masquer les options';
+            }
+        }
+
+        // Fonction pour copier le contenu du script
+        function copyScriptContent(content) {
+            const scriptContentToCopy = document.getElementById('scriptContentToCopy');
+            scriptContentToCopy.value = content;
+            scriptContentToCopy.select();
+            try {
+                const successful = document.execCommand('copy');
+                const msg = successful ? 'Script copié avec succès !' : 'La copie du script a échoué.';
+                showMessage(msg);
+            } catch (err) {
+                showMessage('Impossible de copier le script. Votre navigateur ne le supporte peut-être pas.');
+            }
+        }
+
+        // Données des scripts
+        const scriptsData = [
+            {
+                id: 'speedBoost',
+                name: 'Speed Boost Global',
+                description: 'Donne à tous les joueurs une augmentation temporaire de vitesse. Parfait pour les jeux de course ou les événements spéciaux. Facile à intégrer et personnalisable.',
+                type: 'free',
+                price: null,
+                content: 'print("Hello, Speed! -- Contenu du script Speed Boost Global")'
+            },
+            {
+                id: 'dayNight',
+                name: 'Système de Jour/Nuit',
+                description: 'Un système réaliste de cycle jour/nuit pour vos mondes Roblox. Comprend des transitions douces et la possibilité de définir des heures spécifiques.',
+                type: 'free',
+                price: null,
+                content: 'game.Lighting.ClockTime = 12 -- Contenu du script Jour/Nuit'
+            },
+            {
+                id: 'teleporter',
+                name: 'Teleporteur Simple',
+                description: 'Créez des points de téléportation personnalisables dans votre jeu. Idéal pour relier différentes zones ou créer des événements.',
+                type: 'free',
+                price: null,
+                content: 'game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 50, 0) -- Contenu du script Téléporteur'
+            },
+            {
+                id: 'inventory',
+                name: 'Système d\'Inventaire Avancé',
+                description: 'Un système d\'inventaire complet avec gestion des objets, slots, et interface utilisateur personnalisable. Idéal pour les RPG ou jeux de survie.',
+                type: 'paid',
+                price: 999,
+                content: null // Contenu non disponible pour les scripts payants
+            },
+            {
+                id: 'antiCheat',
+                name: 'Anti-Cheat Complet',
+                description: 'Un script anti-triche robuste pour protéger votre jeu des exploits courants (fly hack, speed hack, etc.). Met à jour régulièrement.',
+                type: 'paid',
+                price: 1499,
+                content: null
+            },
+            {
+                id: 'dynamicMissions',
+                name: 'Système de Missions Dynamiques',
+                description: 'Permet de créer et de gérer des missions dynamiques pour les joueurs, avec suivi des objectifs, récompenses et notifications.',
+                type: 'paid',
+                price: 799,
+                content: null
+            }
+        ];
+
+        let currentFilter = 'all'; // 'all', 'free', 'paid'
+
+        // Fonction pour générer une carte de script
+        function createScriptCard(script) {
+            const cardDiv = document.createElement('div');
+            cardDiv.classList.add('bg-gray-800', 'p-6', 'rounded-xl', 'shadow-lg', 'hover:shadow-2xl', 'transition-all', 'duration-300', 'transform', 'hover:scale-105', 'flex', 'flex-col', 'script-card');
+            cardDiv.dataset.type = script.type; // Pour le filtrage
+
+            let buttonHtml = '';
+            if (script.type === 'free') {
+                buttonHtml = `
+                    <button onclick="toggleScriptOptions(this, 'options-${script.id}')"
+                            class="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg">
+                        Afficher les options
+                    </button>
+                    <div id="options-${script.id}" class="script-options hidden mt-4 flex space-x-2">
+                        <button onclick="showMessage('Téléchargement du script ${script.name}... (Fonctionnalité non implémentée)')"
+                                class="flex-1 bg-gray-700 hover:bg-gray-800 text-white text-sm font-bold py-2 px-3 rounded-lg transition-all duration-300 shadow-md">
+                            Télécharger
+                        </button>
+                        <button onclick="copyScriptContent('${script.content.replace(/'/g, "\\'")}')"
+                                class="flex-1 bg-gray-700 hover:bg-gray-800 text-white text-sm font-bold py-2 px-3 rounded-lg transition-all duration-300 shadow-md">
+                            Copier le script
+                        </button>
+                    </div>
+                `;
+            } else {
+                buttonHtml = `
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-xl font-bold text-gray-300">${script.price} Robux</span>
+                        <button onclick="showMessage('Achat du script ${script.name}... (Fonctionnalité non implémentée)')"
+                                class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg">
+                            Acheter
+                        </button>
+                    </div>
+                `;
+            }
+
+            cardDiv.innerHTML = `
+                <h3 class="text-2xl font-semibold mb-3 text-white">${script.name}</h3>
+                <p class="text-gray-400 text-sm mb-4 flex-grow">${script.description}</p>
+                <div class="mt-auto">
+                    ${buttonHtml}
+                </div>
+            `;
+            return cardDiv;
+        }
+
+        // Fonction pour afficher les scripts en fonction du filtre et de la recherche
+        function displayScripts() {
+            const container = document.getElementById('scriptsContainer');
+            container.innerHTML = ''; // Nettoyer le conteneur
+            const searchTerm = document.getElementById('scriptSearch').value.toLowerCase();
+            let displayedCount = 0;
+
+            const filteredAndSearchedScripts = scriptsData.filter(script => {
+                const matchesSearch = script.name.toLowerCase().includes(searchTerm) ||
+                                      script.description.toLowerCase().includes(searchTerm);
+
+                const matchesFilter = (currentFilter === 'all') ||
+                                      (currentFilter === 'free' && script.type === 'free') ||
+                                      (currentFilter === 'paid' && script.type === 'paid');
+
+                return matchesSearch && matchesFilter;
+            });
+
+            if (filteredAndSearchedScripts.length === 0) {
+                document.getElementById('noResultsMessage').classList.remove('hidden');
+            } else {
+                document.getElementById('noResultsMessage').classList.add('hidden');
+                filteredAndSearchedScripts.forEach(script => {
+                    container.appendChild(createScriptCard(script));
+                    displayedCount++;
+                });
+            }
+
+            document.getElementById('totalScripts').innerText = `Total des scripts : ${scriptsData.length}`;
+            document.getElementById('displayedScripts').innerText = `Scripts affichés : ${displayedCount}`;
+        }
+
+        // Fonction pour filtrer les scripts (déclenchée par les boutons)
+        function setFilter(filterType) {
+            currentFilter = filterType;
+            displayScripts();
+        }
+
+        // Fonction pour filtrer les scripts (déclenchée par la barre de recherche)
+        function filterScripts() {
+            displayScripts();
+        }
+
+        // Afficher tous les scripts au chargement de la page
+        document.addEventListener('DOMContentLoaded', displayScripts);
+    </script>
+</body>
+</html>
